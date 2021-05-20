@@ -111,7 +111,7 @@ public class StackController : SuperClass
             if (stacks.childCount - 1 > 0)
             {
 
-                Haptic.LightTaptic();
+               
                 transform.position = Vector3.Lerp(transform.position,
                 new Vector3(currentBridges[0].transform.position.x, transform.position.y,
                 currentBridges[0].transform.position.z), 0.4f);
@@ -119,7 +119,7 @@ public class StackController : SuperClass
 
                 if (Vector3.Distance(transform.position, currentBridges[0].transform.position) < 0.2f)
                 {
-
+                    Haptic.LightTaptic();
                     stacks.GetChild(stacks.childCount - 1).transform.parent = currentBridges[0].transform;
                     currentBridges[0].transform.GetChild(0).transform.localPosition = new Vector3(0, 1, 0);
                     currentBridges[0].transform.tag = "Passed";
@@ -128,7 +128,8 @@ public class StackController : SuperClass
                     passedBridges.Add(currentBridges[0]);
                     currentBridges.RemoveAt(0);
                     stacksLeftToBridge--;
-                    
+                   
+
                 }
             }
             if (currentBridges.Count == 0)

@@ -40,9 +40,22 @@ public class GameManager : MonoSingleton<GameManager>
                     StartCoroutine(LoadAsynchronously(rand_level));
                 }
 
-                }
+            }
 
             EventManager.OnLevelStart?.Invoke();
+        }
+
+        if(gameStates == EventManager.GameStates.Restart)
+        {
+            SceneManager.UnloadSceneAsync(Level.Instance.scene).completed += (op) =>
+            {
+                SceneManager.LoadSceneAsync("Level " + DataManager.PlayerData.Level, LoadSceneMode.Additive).completed += (op2) =>
+                {
+
+                    EventManager.OnGameStart?.Invoke();
+                };
+
+            };
         }
 
           

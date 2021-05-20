@@ -24,6 +24,7 @@ public class EventManager : MonoBehaviour
         LoadingLevel,
         GameWin,
         NextLevel,
+        Restart,
     }
 
 

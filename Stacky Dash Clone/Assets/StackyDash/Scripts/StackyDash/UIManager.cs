@@ -5,16 +5,23 @@ using DG.Tweening;
 
 public class UIManager :MonoBehaviour
 {
-    [Header("GAME UI")]
+    [Header("LOADING")]
     [SerializeField] GameObject loadingPanel;
     [SerializeField] Image loadingBar;
+
+    [Header("GAME VIEW")]
     [SerializeField] GameObject IndexLevel;
     [SerializeField] GameObject gameViewPanel;
     [SerializeField] TextMeshProUGUI stageClearText;
     [SerializeField] GameObject stageFinishedPanel;
-    [SerializeField] TextMeshProUGUI infoText;
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] TextMeshProUGUI levelCompletedText;
+
+
+    [Header("TUTORIAL")]
+    [SerializeField] GameObject tutorial;
+    
+
 
 
     private void OnEnable()
@@ -48,15 +55,18 @@ public class UIManager :MonoBehaviour
 
     private void LevelStart()
     {
-
+       
         loadingPanel.SetActive(false);
+
+
         gameViewPanel.SetActive(true);
 
+        
 
         int sceneIndex = DataManager.GameData.Level_id;
         
 
-        Debug.Log(sceneIndex);
+        
         for (int i = 0;i<5;i++)
         {
             if (sceneIndex - 5 < 0)
@@ -81,6 +91,8 @@ public class UIManager :MonoBehaviour
 
    
 
+
+
     private void StageClear()
     {
         stageClearText.transform.DOScale(Vector3.one * 1.5f, 0.5f).SetEase(Ease.InOutBounce).OnComplete(() =>
@@ -102,18 +114,18 @@ public class UIManager :MonoBehaviour
 
     private void SetTutorial(Vector3 direction)
     {
+        
         if(direction != Vector3.zero)
         {
-            infoText.gameObject.SetActive(false);
+            tutorial.gameObject.SetActive(false);
         }
     }
 
     public void ResartGame()
     {
-
-        loadingPanel.SetActive(true);
+        gameViewPanel.SetActive(false);
         loadingBar.DOFillAmount(1f, 1.5f).OnComplete(() =>
-        EventManager.Instance.CurrentState = EventManager.GameStates.LoadingLevel);
+        EventManager.Instance.CurrentState = EventManager.GameStates.Restart);
     }
 
     public void NextLevel()
